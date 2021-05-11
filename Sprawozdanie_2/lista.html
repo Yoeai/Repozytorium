@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ToDo Lista</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styl.css">
+</head>
+<body>
+
+<div id="myDIV" class="header">
+  <h2 style="margin:5px">Moja Lista ToDo</h2>
+  <input type="text" id="myInput" placeholder="Tytuł...">
+  <span onclick="newElement()" class="addBtn">Dodaj</span>
+  <input type="text" id="zmien" placeholder="Zmień zawartość...">
+  <span onclick="zmienElement()" class="addBtn">Zacznij zmieniać</span>
+  <span onclick="stopuj()" class="addBtn">Przestań zmieniać</span>
+</div>
+
+<ul id="lista">
+</ul>
+
+<script>
+// Stworzenie przycisku "zamykającego" i dodanie go do każdego przedmiotu listy.
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+// Kliknij w przycisk "x" aby ukryć przedmiot listy należący do tego x'a.
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+// Dodaj "zaznaczenie" gdy klinkniesz na przedmiocie listy.
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+// Funckaj która pozwala edytować przedmiot z listy.
+function start(click) {
+    var list1 = document.querySelector('ul');
+    var zmienValue = document.getElementById("zmien").value;
+    if (click.target.tagName === 'LI') {
+        click.target.innerHTML = zmienValue;
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        click.target.appendChild(span);
+        for (i = 0; i < close.length; i++) {
+                close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                    
+                }
+        }
+    }
+}
+/* Funkcja która związana jest z przyciskiem "Zacznij zmieniać". Po naciśnięciu przycisku "Zacznij zmieniać" możesz
+ jednym kliknięciem zmienić zawartość przedmiotu na wpisany w inpucie. UWAGA! Jeśli chcesz zmienić zawartość na coś innego
+ najpierw musisz wpisać wartość do inputa z placeholderem "Zmień zawartość" i znowu kliknąć "Zacznij zmieniać".
+*/
+function zmienElement() {
+    var list1 = document.querySelector('ul');
+    list1.addEventListener('click', start, false);
+}
+/* Funckja która związana jest z przyciskiem "Przestań zmieniać". Po kliknięciu niej zaznaczenie przedmiotu z listy 
+ nie będzie już zmieniało zawartośći.
+*/
+function stopuj() {
+    var list1 = document.querySelector('ul');
+    list1.removeEventListener('click', start, false);
+}
+
+
+// Stwórz nowy przedmiot listy wraz z unikalnym Id po kliknięciu przysicku "Dodaj".
+var g=0;
+function newElement() {
+
+  g=g+1; 
+  var li = document.createElement("li");
+  li.setAttribute("id", g);
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("lista").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
