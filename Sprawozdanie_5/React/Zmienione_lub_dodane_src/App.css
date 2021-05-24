@@ -1,0 +1,37 @@
+.App {
+  text-align: center;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(73,79,82);
+  color: white;
+}
+li {
+  border: 1px solid;
+  padding: 10px;
+  border-radius: 180px;
+  border-color: red;
+  background: red;
+}
+.nav-links {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+img {
+  height: 200px;
+  width: 200px;
+}
+#gry>h2 {
+  background: yellow;
+  align-items: center;
+  border-radius: 180px;
+  width: 500px;
+  margin-left: 35%;
+
+}
